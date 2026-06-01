@@ -1,0 +1,23 @@
+{
+  "name": "llm-testing-playwright",
+  "version": "1.0.0",
+  "description": "Production-grade LLM testing patterns with Playwright",
+  "type": "module",
+  "scripts": {
+    "test": "npx playwright test tests/llm/",
+    "test:fast": "npx playwright test tests/llm/suites/Compliance.spec.js tests/llm/suites/Negative.spec.js",
+    "test:regression": "npx playwright test tests/llm/suites/Regression.spec.js",
+    "test:structure": "npx playwright test tests/llm/suites/Structure.spec.js",
+    "test:ui": "npx playwright test --ui tests/llm/",
+    "dashboard": "node scripts/generate-dashboard.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.88.0",
+    "js-rouge": "^1.0.0",
+    "openai": "^6.34.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}

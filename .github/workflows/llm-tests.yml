@@ -1,0 +1,52 @@
+name: LLM Quality Tests
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # Every Monday 6:00 UTC
+  workflow_dispatch:
+  push:
+    paths:
+      - 'prompts/**'
+      - 'tests/llm/**'
+
+jobs:
+  test-llm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci && npx playwright install chromium
+
+      - name: Run structure + security tests
+        run: |
+          npx playwright test \
+            tests/llm/suites/Structure.spec.js \
+            tests/llm/suites/Compliance.spec.js \
+            tests/llm/suites/Negative.spec.js -x
+        env:
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Run regression + quality metrics
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: npx playwright test tests/llm/ --reporter=html
+        env:
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: llm-test-results
+          path: playwright-report/
+          retention-days: 30
