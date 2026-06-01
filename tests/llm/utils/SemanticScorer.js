@@ -1,4 +1,4 @@
-import { RougeScorer } from 'js-rouge';
+import { n as rougeN, l as rougeL } from 'js-rouge';
 
 const STOPWORDS = new Set([
   'the', 'a', 'an', 'is', 'to', 'of', 'and', 'in', 'for',
@@ -16,8 +16,11 @@ export class SemanticScorer {
   }
 
   rougeScore(reference, generated) {
-    const scorer = new RougeScorer();
-    return scorer.score(reference, generated);
+    return {
+      rouge1: rougeN(reference, generated, 1),
+      rouge2: rougeN(reference, generated, 2),
+      rougeL: rougeL(reference, generated),
+    };
   }
 
   completeness(reference, generated) {
