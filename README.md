@@ -7,6 +7,15 @@
 
 Production-grade patterns for testing LLM systems using Playwright. Covers evaluation, safety, regression, and multi-agent architectures — all in one runnable codebase.
 
+## Dashboard
+
+![Overview](docs/dashboard-security.png)
+![Security](docs/dashboard-overview.png)
+
+## Why this exists
+
+Most teams don't have a structured way to test LLM outputs beyond "it looks right." This framework was built while testing a production AI chatbot — to catch quality regressions, measure response drift between deployments, and run security checks automatically. It's not a toy example: it runs in CI/CD on every push and on a weekly schedule.
+
 ## Highlights
 
 - Soft Asserts for LLMs
@@ -505,6 +514,12 @@ npx playwright test tests/llm/suites/Compliance.spec.js tests/llm/suites/Negativ
 # Switch provider
 LLM_PROVIDER=openai npx playwright test tests/llm/
 ```
+
+---
+
+## About
+
+Built by [Veronika Lezhneva](https://www.linkedin.com/in/veronika-lezhneva-34ab107a/) — QA Lead specializing in AI/LLM testing. Built and used in production while testing a real-time AI chatbot platform.
 
 ---
 

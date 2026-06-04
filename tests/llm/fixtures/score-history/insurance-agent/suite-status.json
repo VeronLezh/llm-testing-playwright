@@ -1,0 +1,8 @@
+{
+  "Compliance": {"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"},
+  "Structure (Zod)": {"status":"warn","passed":2,"total":3,"date":"2026-06-04T08:07:00Z"},
+  "Quality Metrics": {"status":"pass","passed":5,"total":5,"date":"2026-06-04T08:07:00Z"},
+  "Regression": {"status":"pass","passed":3,"total":3,"date":"2026-06-04T08:07:00Z"},
+  "Security": {"status":"pass","passed":7,"total":7,"date":"2026-06-04T08:07:00Z"},
+  "Universal (brevity)": {"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"}
+}

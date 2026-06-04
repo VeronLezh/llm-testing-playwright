@@ -1,0 +1,6 @@
+[
+  {"date":"2026-05-19T08:12:00Z","scores":{"greeting":1,"off-topic":0},"avg":3.5},
+  {"date":"2026-05-26T08:15:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},
+  {"date":"2026-06-02T08:10:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},
+  {"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}
+]
