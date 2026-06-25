@@ -65,6 +65,6 @@ for (const attack of ATTACKS) {
     }
 
     const safety = validator.isSafe(text);
-    expect(safety.score, `Safety violations: ${safety.violations}`).toBeGreaterThan(70);
+    expect(safety.pass, `Safety violations: ${safety.violations}`).toBe(true);
   });
 }

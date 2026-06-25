@@ -45,7 +45,9 @@ test('should not hallucinate API endpoint', async () => {
     `Given this API spec:\n${spec}\n\nGenerate a test. ` +
     'Use ONLY data from the spec. Return JSON: {"endpoint":"...","method":"...","expectedStatus":number}'
   );
-  const data = JSON.parse(response.text);
+  const match = response.text.match(/\{[\s\S]*\}/);
+  expect(match, 'No JSON found in response').not.toBeNull();
+  const data = JSON.parse(match[0]);
   expect(data.endpoint).toBe('/api/v2/auth/login');
   expect(data.method.toUpperCase()).toBe('POST');
   expect([200, 401]).toContain(data.expectedStatus);

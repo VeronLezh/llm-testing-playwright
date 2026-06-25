@@ -31,13 +31,15 @@ export class JudgeClient {
     const criteriaJson = `{${Object.keys(criteria).map(k => `"${k}":N`).join(',')}}`;
 
     const prompt = JUDGE_PROMPT
-      .replace('{userPrompt}', userPrompt)
-      .replace('{response}', response)
-      .replace('{criteria}', criteriaText)
-      .replace('{criteriaJson}', criteriaJson);
+      .replaceAll('{userPrompt}', userPrompt)
+      .replaceAll('{response}', response)
+      .replaceAll('{criteria}', criteriaText)
+      .replaceAll('{criteriaJson}', criteriaJson);
 
     const text = await this._call(prompt);
-    return JSON.parse(text);
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error(`JudgeClient: no JSON in response:\n${text}`);
+    return JSON.parse(match[0]);
   }
 
   verdict(result, { threshold = 3.0 } = {}) {
