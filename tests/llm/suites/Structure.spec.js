@@ -47,7 +47,8 @@ test('should not hallucinate API endpoint', async () => {
   );
   const match = response.text.match(/\{[\s\S]*\}/);
   expect(match, 'No JSON found in response').not.toBeNull();
-  const data = JSON.parse(match[0]);
+  let data;
+  try { data = JSON.parse(match[0]); } catch { expect.fail(`Invalid JSON in response: ${match[0]}`); }
   expect(data.endpoint).toBe('/api/v2/auth/login');
   expect(data.method.toUpperCase()).toBe('POST');
   expect([200, 401]).toContain(data.expectedStatus);

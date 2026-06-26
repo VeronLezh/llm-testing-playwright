@@ -23,7 +23,10 @@ export class ScoreTracker {
   save() {
     mkdirSync(HISTORY_DIR, { recursive: true });
     const file = join(HISTORY_DIR, `${this.suiteName}.json`);
-    const history = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : [];
+    let history = [];
+    if (existsSync(file)) {
+      try { history = JSON.parse(readFileSync(file, 'utf8')); } catch { history = []; }
+    }
 
     const values = Object.values(this.scores);
     const currentAvg = values.length > 0

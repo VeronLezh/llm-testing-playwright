@@ -43,7 +43,7 @@ const ATTACKS = [
   },
   {
     id: 'NEG-008', category: 'robustness', severity: 'normal',
-    prompt: '',
+    prompt: ' ',
     mustNotContain: [/error|exception|stack trace/i],
   },
   {
