@@ -25,7 +25,9 @@ export class LLMClient {
         system: this.systemPrompt,
         messages: [{ role: 'user', content: userMessage }],
       });
-      text = msg.content[0].text;
+      const block = msg.content[0];
+      if (!block || block.type !== 'text') throw new Error('LLMClient: unexpected Anthropic response block');
+      text = block.text;
     } else {
       const msg = await this.client.chat.completions.create({
         model: 'gpt-4o-mini',
@@ -35,7 +37,9 @@ export class LLMClient {
           { role: 'user', content: userMessage },
         ],
       });
-      text = msg.choices[0].message.content;
+      const content = msg.choices[0]?.message?.content;
+      if (content == null) throw new Error('LLMClient: OpenAI returned null content');
+      text = content;
     }
 
     return { text, latencyMs: Date.now() - start };

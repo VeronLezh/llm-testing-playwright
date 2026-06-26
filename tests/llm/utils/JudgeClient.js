@@ -54,13 +54,17 @@ export class JudgeClient {
         max_tokens: 512,
         messages: [{ role: 'user', content: prompt }],
       });
-      return msg.content[0].text;
+      const block = msg.content[0];
+      if (!block || block.type !== 'text') throw new Error('JudgeClient: unexpected Anthropic response block');
+      return block.text;
     }
     const msg = await this.client.chat.completions.create({
       model: 'gpt-4o-mini',
       temperature: 0,
       messages: [{ role: 'user', content: prompt }],
     });
-    return msg.choices[0].message.content;
+    const content = msg.choices[0]?.message?.content;
+    if (content == null) throw new Error('JudgeClient: OpenAI returned null content');
+    return content;
   }
 }
