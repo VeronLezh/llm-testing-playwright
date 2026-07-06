@@ -58,6 +58,14 @@ export const CAPABILITIES = {
     applicableTo: ['loan-agent', 'insurance-agent'],
   },
 
+  'phone-collection-flow': {
+    id: 'phone-collection-flow',
+    name: 'Phone Collection Flow',
+    description: 'Agent collects and confirms a phone number step by step before proceeding',
+    universal: false,
+    applicableTo: ['loan-agent'],
+  },
+
   regression: {
     id: 'regression',
     name: 'Golden Dataset Regression',

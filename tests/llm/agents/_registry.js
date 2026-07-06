@@ -16,6 +16,7 @@ export const AGENTS = [
       'sms-consent',
       'tool-silence',
       'human-handoff',
+      'phone-collection-flow',
     ],
 
     systemPrompt: LOAN_AGENT_SYSTEM_PROMPT,

@@ -14,8 +14,9 @@ export class LLMClient {
       : new OpenAI({ apiKey });
   }
 
-  async send(userMessage) {
+  async send(userMessage, { history = [] } = {}) {
     const start = Date.now();
+    const turns = [...history, { role: 'user', content: userMessage }];
     let text;
 
     if (this.provider === 'anthropic') {
@@ -23,7 +24,7 @@ export class LLMClient {
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 1024,
         system: this.systemPrompt,
-        messages: [{ role: 'user', content: userMessage }],
+        messages: turns,
       });
       const block = msg.content[0];
       if (!block || block.type !== 'text') throw new Error('LLMClient: unexpected Anthropic response block');
@@ -34,7 +35,7 @@ export class LLMClient {
         temperature: 0,
         messages: [
           { role: 'system', content: this.systemPrompt },
-          { role: 'user', content: userMessage },
+          ...turns,
         ],
       });
       const content = msg.choices[0]?.message?.content;
@@ -42,6 +43,7 @@ export class LLMClient {
       text = content;
     }
 
-    return { text, latencyMs: Date.now() - start };
+    const updatedHistory = [...turns, { role: 'assistant', content: text }];
+    return { text, latencyMs: Date.now() - start, history: updatedHistory };
   }
 }
