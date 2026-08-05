@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
+import { comparePromptVersions } from '../tests/llm/utils/ScoreTracker.js';
 
 const SUITES = ['regression', 'semantic', 'security', 'compliance'];
 
@@ -30,7 +31,8 @@ function buildAgentData(agent) {
       return [s, parseFloat(((h.at(-1).avg ?? 0) - (h.at(-2).avg ?? 0)).toFixed(2))];
     })
   );
-  return { data, suiteStatus, latest, drift };
+  const promptVersions = comparePromptVersions(data.regression);
+  return { data, suiteStatus, latest, drift, promptVersions };
 }
 
 function scoreColor(avg) {
@@ -52,7 +54,7 @@ function buildDashboard() {
   const allAgentData = {};
   AGENTS.forEach(a => { allAgentData[a] = buildAgentData(a); });
 
-  const { data, suiteStatus, latest, drift } = firstAgent
+  const { data, suiteStatus, latest, drift, promptVersions } = firstAgent
     ? allAgentData[firstAgent]
     : buildAgentData(null);
 
@@ -179,6 +181,7 @@ ${AGENTS.length > 0 ? `<div id="agent-bar" style="display:flex;gap:8px;padding:1
   <button onclick="show('regression',this)">Regression</button>
   <button onclick="show('security',this)">Security</button>
   <button onclick="show('suites',this)">Suite Health</button>
+  <button onclick="show('promptversions',this)">Prompt Versions</button>
 </nav>
 
 <main>
@@ -317,6 +320,11 @@ ${AGENTS.length > 0 ? `<div id="agent-bar" style="display:flex;gap:8px;padding:1
   </div>
 </section>
 
+<!-- PROMPT VERSIONS -->
+<section id="promptversions">
+  <div id="prompt-versions-content" style="margin-top:20px"></div>
+</section>
+
 </main>
 
 <script>
@@ -337,8 +345,48 @@ function switchAgent(agentId, btn) {
   updateDashboard(d);
 }
 
+function renderPromptVersions(pv) {
+  const el = document.getElementById('prompt-versions-content');
+  if (!pv?.comparison) {
+    el.innerHTML = \`<div class="cc"><h2>Prompt Versions</h2>
+      <p style="font-size:13px;color:#828282">Only one prompt version seen so far. Change the agent's
+      system prompt, re-run the regression suite, and this tab will compare the two versions' scores
+      case by case.</p></div>\`;
+    return;
+  }
+
+  const { promptHashA, promptHashB, avgA, avgB, cases } = pv.comparison;
+  const avgDelta = parseFloat((avgB - avgA).toFixed(2));
+
+  el.innerHTML = \`
+    <div class="cc">
+      <h2>Prompt Version Comparison</h2>
+      <p style="font-size:13px;color:#4F6290;margin-bottom:12px">
+        <code>\${promptHashA}</code> &rarr; <code>\${promptHashB}</code> &middot;
+        avg \${avgA.toFixed(2)} &rarr; \${avgB.toFixed(2)}
+        <strong style="color:\${avgDelta >= 0 ? '#22c55e' : '#ef4444'}">(\${avgDelta >= 0 ? '+' : ''}\${avgDelta})</strong>
+      </p>
+      <table>
+        <thead><tr><th>Case ID</th><th>Before</th><th>After</th><th>Delta</th></tr></thead>
+        <tbody>
+          \${cases.map(c => {
+            const delta = c.delta;
+            const col = delta === null ? '#828282' : delta > 0 ? '#22c55e' : delta < 0 ? '#ef4444' : '#828282';
+            return \`<tr>
+              <td><strong>\${c.id}</strong></td>
+              <td>\${c.before !== null ? c.before.toFixed(2) : '—'}</td>
+              <td>\${c.after !== null ? c.after.toFixed(2) : '—'}</td>
+              <td style="color:\${col};font-weight:600">\${delta === null ? 'new/removed' : (delta > 0 ? '+' : '') + delta}</td>
+            </tr>\`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>\`;
+}
+
 function updateDashboard(d) {
-  const { data, suiteStatus, latest, drift } = d;
+  const { data, suiteStatus, latest, drift, promptVersions } = d;
+  renderPromptVersions(promptVersions);
   const labels = data.regression.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
   const colors = ['#016CE2','#22c55e','#f59e0b','#8b5cf6'];
   const suites = ['regression','semantic','security','compliance'];
@@ -410,6 +458,8 @@ new Chart(document.getElementById('regChart'), {
     scales: { y: { min: 0, max: 5 }, x: { grid: { display: false } } }
   }
 });
+
+renderPromptVersions(${JSON.stringify(promptVersions)});
 
 new Chart(document.getElementById('ringChart'), {
   type: 'doughnut',

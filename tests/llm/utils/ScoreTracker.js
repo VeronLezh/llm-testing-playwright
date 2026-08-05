@@ -5,9 +5,10 @@ import { fileURLToPath } from 'url';
 const HISTORY_DIR = join(dirname(fileURLToPath(import.meta.url)), '../fixtures/score-history');
 
 export class ScoreTracker {
-  constructor(suiteName, { maxDrift = 0.5 } = {}) {
+  constructor(suiteName, { maxDrift = 0.5, promptHash = null } = {}) {
     this.suiteName = suiteName;
     this.maxDrift = maxDrift;
+    this.promptHash = promptHash;
     this.scores = {};
     this.metrics = {};
   }
@@ -38,6 +39,7 @@ export class ScoreTracker {
       scores: this.scores,
       metrics: this.metrics,
       avg: currentAvg,
+      promptHash: this.promptHash,
     };
 
     const previous = history[history.length - 1];
@@ -58,4 +60,40 @@ export class ScoreTracker {
 
     return { pass, reason, drift: previous?.avg != null ? previous.avg - currentAvg : 0 };
   }
+}
+
+/**
+ * Groups score-history entries by prompt version (last entry per hash wins,
+ * since a version can be re-run) and diffs the two most recent versions —
+ * so a score drop can be attributed to a specific prompt change, not just "some run".
+ */
+export function comparePromptVersions(history) {
+  const versions = new Map();
+  for (const entry of history) {
+    if (!entry.promptHash) continue;
+    versions.set(entry.promptHash, entry);
+  }
+
+  const ordered = [...versions.values()].sort((a, b) => new Date(a.date) - new Date(b.date));
+  if (ordered.length < 2) return { versions: ordered, comparison: null };
+
+  const [prev, current] = ordered.slice(-2);
+  const caseIds = new Set([...Object.keys(prev.scores ?? {}), ...Object.keys(current.scores ?? {})]);
+  const cases = [...caseIds].sort().map(id => {
+    const before = prev.scores?.[id] ?? null;
+    const after = current.scores?.[id] ?? null;
+    const delta = before != null && after != null ? parseFloat((after - before).toFixed(2)) : null;
+    return { id, before, after, delta };
+  });
+
+  return {
+    versions: ordered,
+    comparison: {
+      promptHashA: prev.promptHash,
+      promptHashB: current.promptHash,
+      avgA: prev.avg,
+      avgB: current.avg,
+      cases,
+    },
+  };
 }

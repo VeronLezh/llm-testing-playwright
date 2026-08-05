@@ -55,8 +55,9 @@ tests/llm/
 │   ├── LLMClient.js          # provider-agnostic API wrapper
 │   ├── JudgeClient.js        # LLM-as-a-Judge evaluator
 │   ├── ResponseValidator.js  # keyword + safety checks
-│   ├── ScoreTracker.js       # history + drift detection
-│   └── SemanticScorer.js     # ROUGE, Jaccard, completeness
+│   ├── ScoreTracker.js       # history + drift detection + prompt-version comparison
+│   ├── SemanticScorer.js     # ROUGE, Jaccard, completeness
+│   └── promptFingerprint.js  # hashes system prompts for version tracking
 ├── suites/
 │   ├── Compliance.spec.js    # greeting, topic adherence
 │   ├── Structure.spec.js     # Zod schema validation
@@ -312,6 +313,11 @@ for (const attack of ATTACKS) {
 }
 ```
 
+**Scope note:** `NEG-003` (XSS) checks that the *model* doesn't echo the payload — it does not
+substitute for output escaping in the chat UI, which is the actual XSS control. `NEG-008`/`NEG-009`
+(degenerate input) are transport robustness, not prompt safety. Keep them — a model that fails
+gracefully matters — but don't read a green run here as coverage for either concern.
+
 ---
 
 ## Semantic Metrics
@@ -371,6 +377,32 @@ const result = tracker.save();
 ```
 
 Score files are stored in `tests/llm/fixtures/score-history/` and committed to git, so drift is tracked across CI runs.
+
+### Prompt Versioning
+
+**Problem:** A score drop between two runs could be a model fluke, a data change, or an actual prompt regression — a raw drift number doesn't tell you which.
+**Solution:** Fingerprint the system prompt that produced each run and tag the score-history entry with it, so a comparison can be anchored to a specific prompt version instead of just a timestamp.
+
+```javascript
+// tests/llm/utils/promptFingerprint.js
+
+export function hashPrompt(systemPrompt) {
+  return createHash('sha256').update(systemPrompt).digest('hex').slice(0, 12);
+}
+```
+
+```javascript
+// tests/llm/suites/Regression.spec.js
+
+const tracker = new ScoreTracker('regression', {
+  maxDrift: 0.5,
+  promptHash: hashPrompt(client.systemPrompt),
+});
+```
+
+`ScoreTracker` stamps every saved entry with that hash. `comparePromptVersions()` then groups history
+by hash and diffs the two most recent versions case by case — the dashboard's **Prompt Versions** tab
+renders that diff, so "did the prompt change help or hurt" is a lookup, not a guess.
 
 ---
 

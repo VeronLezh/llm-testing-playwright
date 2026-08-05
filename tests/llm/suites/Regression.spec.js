@@ -3,11 +3,12 @@ import { LLMClient } from '../utils/LLMClient.js';
 import { JudgeClient } from '../utils/JudgeClient.js';
 import { ScoreTracker } from '../utils/ScoreTracker.js';
 import { ResponseValidator } from '../utils/ResponseValidator.js';
+import { hashPrompt } from '../utils/promptFingerprint.js';
 import { goldenDataset } from '../fixtures/golden-dataset.js';
 
 const client = new LLMClient();
 const judge = new JudgeClient();
-const tracker = new ScoreTracker('regression', { maxDrift: 0.5 });
+const tracker = new ScoreTracker('regression', { maxDrift: 0.5, promptHash: hashPrompt(client.systemPrompt) });
 const validator = new ResponseValidator();
 
 for (const golden of goldenDataset) {
