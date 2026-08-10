@@ -3,8 +3,9 @@ import { comparePromptVersions } from '../tests/llm/utils/ScoreTracker.js';
 
 const SUITES = ['regression', 'semantic', 'security', 'compliance'];
 
-const AGENTS = readdirSync('tests/llm/fixtures/score-history')
+const AGENT_DIRS = readdirSync('tests/llm/fixtures/score-history')
   .filter(f => statSync(`tests/llm/fixtures/score-history/${f}`).isDirectory());
+const AGENTS = ['default', ...AGENT_DIRS];
 
 function readHistory(suite, agent = null) {
   const file = agent
@@ -21,8 +22,9 @@ function readSuiteStatus(agent = null) {
 }
 
 function buildAgentData(agent) {
-  const data = Object.fromEntries(SUITES.map(s => [s, readHistory(s, agent)]));
-  const suiteStatus = readSuiteStatus(agent);
+  const dir = agent === 'default' ? null : agent;
+  const data = Object.fromEntries(SUITES.map(s => [s, readHistory(s, dir)]));
+  const suiteStatus = readSuiteStatus(dir);
   const latest = Object.fromEntries(SUITES.map(s => [s, data[s].at(-1) ?? null]));
   const drift = Object.fromEntries(
     SUITES.map(s => {
@@ -50,13 +52,10 @@ function scoreBg(avg) {
 }
 
 function buildDashboard() {
-  const firstAgent = AGENTS[0] ?? null;
   const allAgentData = {};
   AGENTS.forEach(a => { allAgentData[a] = buildAgentData(a); });
 
-  const { data, suiteStatus, latest, drift, promptVersions } = firstAgent
-    ? allAgentData[firstAgent]
-    : buildAgentData(null);
+  const { data, suiteStatus, latest, drift, promptVersions } = allAgentData[AGENTS[0]];
 
   const worstCases = latest.regression
     ? Object.entries(latest.regression.scores)

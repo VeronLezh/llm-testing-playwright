@@ -79,11 +79,11 @@
 <body>
 <header>
   <h1>⚡ LLM Evaluation Dashboard</h1>
-  <span class="sub">Last run: August 5, 2026</span>
+  <span class="sub">Last run: August 10, 2026</span>
 </header>
 
 <div id="agent-bar" style="display:flex;gap:8px;padding:12px 24px;background:#fff;border-bottom:1px solid #E0E0E0;flex-wrap:wrap">
-  <button class="agent-pill active" onclick="switchAgent('insurance-agent',this)" style="background:#016CE2;border:1px solid #016CE2;border-radius:16px;padding:6px 14px;font-size:12px;cursor:pointer;color:#fff;font-weight:500;transition:all .15s">Insurance Agent</button><button class="agent-pill" onclick="switchAgent('loan-agent',this)" style="background:none;border:1px solid #E0E0E0;border-radius:16px;padding:6px 14px;font-size:12px;cursor:pointer;color:#4F6290;font-weight:500;transition:all .15s">Loan Agent</button>
+  <button class="agent-pill active" onclick="switchAgent('default',this)" style="background:#016CE2;border:1px solid #016CE2;border-radius:16px;padding:6px 14px;font-size:12px;cursor:pointer;color:#fff;font-weight:500;transition:all .15s">Default</button><button class="agent-pill" onclick="switchAgent('insurance-agent',this)" style="background:none;border:1px solid #E0E0E0;border-radius:16px;padding:6px 14px;font-size:12px;cursor:pointer;color:#4F6290;font-weight:500;transition:all .15s">Insurance Agent</button><button class="agent-pill" onclick="switchAgent('loan-agent',this)" style="background:none;border:1px solid #E0E0E0;border-radius:16px;padding:6px 14px;font-size:12px;cursor:pointer;color:#4F6290;font-weight:500;transition:all .15s">Loan Agent</button>
 </div>
 
 <nav>
@@ -99,18 +99,18 @@
 <!-- OVERVIEW -->
 <section id="overview" class="active">
   <div class="cards" style="margin-top:20px">
-    <div class="card" style="background:#f0fdf4">
+    <div class="card" style="background:#f8f8f8">
         <div class="lbl">regression</div>
-        <div class="val" style="color:#22c55e">4.00</div>
-        <div class="drift drift-up">
-          ↑ 0.1 vs prev run
+        <div class="val" style="color:#828282">—</div>
+        <div class="drift drift-flat">
+          → 0 vs prev run
         </div>
-        <div class="sub">6/4/2026</div>
-      </div><div class="card" style="background:#fefce8">
+        <div class="sub">8/10/2026</div>
+      </div><div class="card" style="background:#f0fdf4">
         <div class="lbl">semantic</div>
-        <div class="val" style="color:#eab308">3.95</div>
-        <div class="drift drift-up">
-          ↑ 0.05 vs prev run
+        <div class="val" style="color:#22c55e">4.05</div>
+        <div class="drift drift-down">
+          ↓ 0.05 vs prev run
         </div>
         <div class="sub">6/4/2026</div>
       </div><div class="card" style="background:#f0fdf4">
@@ -130,7 +130,7 @@
       </div>
     <div class="card">
       <div class="lbl">Total Tests</div>
-      <div class="val" style="color:#016CE2">21/22</div>
+      <div class="val" style="color:#016CE2">22/23</div>
       <div class="sub">passing across all suites</div>
     </div>
     <div class="card">
@@ -150,19 +150,7 @@
   <div class="cc">
     <h2>Worst Cases — Regression</h2>
     <div class="failures">
-      <div class="fail-card">
-          <div class="fc-id">INS-002</div>
-          <div class="fc-bar"><div class="fc-fill" style="width:76%;background:#eab308"></div></div>
-          <div class="fc-score" style="color:#eab308">3.80</div>
-        </div><div class="fail-card">
-          <div class="fc-id">INS-001</div>
-          <div class="fc-bar"><div class="fc-fill" style="width:80%;background:#22c55e"></div></div>
-          <div class="fc-score" style="color:#22c55e">4.00</div>
-        </div><div class="fail-card">
-          <div class="fc-id">INS-003</div>
-          <div class="fc-bar"><div class="fc-fill" style="width:84%;background:#22c55e"></div></div>
-          <div class="fc-score" style="color:#22c55e">4.20</div>
-        </div>
+      
     </div>
   </div>
 </section>
@@ -178,22 +166,7 @@
     <table>
       <thead><tr><th>Case ID</th><th>Score</th><th>Min Required</th><th>Status</th></tr></thead>
       <tbody>
-        <tr>
-            <td><strong>INS-001</strong></td>
-            <td style="color:#22c55e;font-weight:600">4.00</td>
-            <td>3.5</td>
-            <td><span class="pill pill-pass">PASS</span></td>
-          </tr><tr>
-            <td><strong>INS-002</strong></td>
-            <td style="color:#eab308;font-weight:600">3.80</td>
-            <td>3.5</td>
-            <td><span class="pill pill-pass">PASS</span></td>
-          </tr><tr>
-            <td><strong>INS-003</strong></td>
-            <td style="color:#22c55e;font-weight:600">4.20</td>
-            <td>3.5</td>
-            <td><span class="pill pill-pass">PASS</span></td>
-          </tr>
+        
       </tbody>
     </table>
   </div>
@@ -246,18 +219,18 @@
         <div class="sc-stat">100% passing · 6/4/2026</div>
       </div><div class="suite-card">
         <div class="sc-name">Structure (Zod)</div>
-        <div class="sc-bar"><div class="sc-fill" style="width:67%;background:#eab308"></div></div>
-        <div style="font-size:18px;font-weight:700;color:#eab308">△ 2/3</div>
-        <div class="sc-stat">67% passing · 6/4/2026</div>
+        <div class="sc-bar"><div class="sc-fill" style="width:100%;background:#22c55e"></div></div>
+        <div style="font-size:18px;font-weight:700;color:#22c55e">✓ 3/3</div>
+        <div class="sc-stat">100% passing · 6/4/2026</div>
       </div><div class="suite-card">
         <div class="sc-name">Quality Metrics</div>
-        <div class="sc-bar"><div class="sc-fill" style="width:100%;background:#22c55e"></div></div>
-        <div style="font-size:18px;font-weight:700;color:#22c55e">✓ 5/5</div>
-        <div class="sc-stat">100% passing · 6/4/2026</div>
+        <div class="sc-bar"><div class="sc-fill" style="width:80%;background:#eab308"></div></div>
+        <div style="font-size:18px;font-weight:700;color:#eab308">△ 4/5</div>
+        <div class="sc-stat">80% passing · 6/4/2026</div>
       </div><div class="suite-card">
         <div class="sc-name">Regression</div>
         <div class="sc-bar"><div class="sc-fill" style="width:100%;background:#22c55e"></div></div>
-        <div style="font-size:18px;font-weight:700;color:#22c55e">✓ 3/3</div>
+        <div style="font-size:18px;font-weight:700;color:#22c55e">✓ 4/4</div>
         <div class="sc-stat">100% passing · 6/4/2026</div>
       </div><div class="suite-card">
         <div class="sc-name">Security</div>
@@ -281,7 +254,7 @@
 </main>
 
 <script>
-const ALL_AGENT_DATA = {"insurance-agent":{"data":{"regression":[{"date":"2026-05-19T08:12:00Z","scores":{"INS-001":3.5,"INS-002":3.4,"INS-003":3.8},"avg":3.57,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-05-26T08:15:00Z","scores":{"INS-001":3.7,"INS-002":3.6,"INS-003":4},"avg":3.77,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-06-02T08:10:00Z","scores":{"INS-001":3.9,"INS-002":3.7,"INS-003":4.1},"avg":3.9,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-06-04T08:07:00Z","scores":{"INS-001":4,"INS-002":3.8,"INS-003":4.2},"avg":4,"promptHash":"9d0c1b2a7f8e"}],"semantic":[{"date":"2026-05-19T08:12:00Z","scores":{"jaccard":0.38,"rouge":0.49,"completeness":0.68},"avg":3.6},{"date":"2026-05-26T08:15:00Z","scores":{"jaccard":0.4,"rouge":0.52,"completeness":0.71},"avg":3.75},{"date":"2026-06-02T08:10:00Z","scores":{"jaccard":0.43,"rouge":0.55,"completeness":0.74},"avg":3.9},{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.44,"rouge":0.56,"completeness":0.75},"avg":3.95}],"security":[{"date":"2026-05-19T08:12:00Z","scores":{"blocked":5,"total":7,"rate":0.71},"avg":3.6},{"date":"2026-05-26T08:15:00Z","scores":{"blocked":6,"total":7,"rate":0.857},"avg":4.3},{"date":"2026-06-02T08:10:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5}],"compliance":[{"date":"2026-05-19T08:12:00Z","scores":{"greeting":1,"off-topic":0},"avg":3.5},{"date":"2026-05-26T08:15:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-02T08:10:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}]},"suiteStatus":{"Compliance":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"},"Structure (Zod)":{"status":"warn","passed":2,"total":3,"date":"2026-06-04T08:07:00Z"},"Quality Metrics":{"status":"pass","passed":5,"total":5,"date":"2026-06-04T08:07:00Z"},"Regression":{"status":"pass","passed":3,"total":3,"date":"2026-06-04T08:07:00Z"},"Security":{"status":"pass","passed":7,"total":7,"date":"2026-06-04T08:07:00Z"},"Universal (brevity)":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"}},"latest":{"regression":{"date":"2026-06-04T08:07:00Z","scores":{"INS-001":4,"INS-002":3.8,"INS-003":4.2},"avg":4,"promptHash":"9d0c1b2a7f8e"},"semantic":{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.44,"rouge":0.56,"completeness":0.75},"avg":3.95},"security":{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},"compliance":{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}},"drift":{"regression":0.1,"semantic":0.05,"security":0,"compliance":0},"promptVersions":{"versions":[{"date":"2026-06-02T08:10:00Z","scores":{"INS-001":3.9,"INS-002":3.7,"INS-003":4.1},"avg":3.9,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-06-04T08:07:00Z","scores":{"INS-001":4,"INS-002":3.8,"INS-003":4.2},"avg":4,"promptHash":"9d0c1b2a7f8e"}],"comparison":{"promptHashA":"c3d4e5f6a1b2","promptHashB":"9d0c1b2a7f8e","avgA":3.9,"avgB":4,"cases":[{"id":"INS-001","before":3.9,"after":4,"delta":0.1},{"id":"INS-002","before":3.7,"after":3.8,"delta":0.1},{"id":"INS-003","before":4.1,"after":4.2,"delta":0.1}]}}},"loan-agent":{"data":{"regression":[{"date":"2026-05-19T08:12:00Z","scores":{"GD-001":3.8,"GD-002":3.6,"GD-003":4.1,"GD-004":3.5},"avg":3.75,"promptHash":"a1b2c3d4e5f6"},{"date":"2026-05-26T08:15:00Z","scores":{"GD-001":4,"GD-002":3.9,"GD-003":4.2,"GD-004":3.7},"avg":3.95,"promptHash":"a1b2c3d4e5f6"},{"date":"2026-06-02T08:10:00Z","scores":{"GD-001":4.2,"GD-002":4,"GD-003":4.3,"GD-004":3.8},"avg":4.08,"promptHash":"a1b2c3d4e5f6"},{"date":"2026-06-04T08:07:00Z","scores":{"GD-001":4.1,"GD-002":3.8,"GD-003":4.4,"GD-004":3.9},"avg":4.05,"promptHash":"7f8e9d0c1b2a"}],"semantic":[{"date":"2026-05-19T08:12:00Z","scores":{"jaccard":0.41,"rouge":0.53,"completeness":0.72},"avg":3.8},{"date":"2026-05-26T08:15:00Z","scores":{"jaccard":0.44,"rouge":0.57,"completeness":0.75},"avg":4},{"date":"2026-06-02T08:10:00Z","scores":{"jaccard":0.46,"rouge":0.59,"completeness":0.78},"avg":4.1},{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.45,"rouge":0.58,"completeness":0.77},"avg":4.05}],"security":[{"date":"2026-05-19T08:12:00Z","scores":{"blocked":6,"total":7,"rate":0.857},"avg":4.3},{"date":"2026-05-26T08:15:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},{"date":"2026-06-02T08:10:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5}],"compliance":[{"date":"2026-05-19T08:12:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-05-26T08:15:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-02T08:10:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}]},"suiteStatus":{"Compliance":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"},"Structure (Zod)":{"status":"pass","passed":3,"total":3,"date":"2026-06-04T08:07:00Z"},"Quality Metrics":{"status":"warn","passed":4,"total":5,"date":"2026-06-04T08:07:00Z"},"Regression":{"status":"pass","passed":4,"total":4,"date":"2026-06-04T08:07:00Z"},"Security":{"status":"pass","passed":7,"total":7,"date":"2026-06-04T08:07:00Z"},"Universal (brevity)":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"}},"latest":{"regression":{"date":"2026-06-04T08:07:00Z","scores":{"GD-001":4.1,"GD-002":3.8,"GD-003":4.4,"GD-004":3.9},"avg":4.05,"promptHash":"7f8e9d0c1b2a"},"semantic":{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.45,"rouge":0.58,"completeness":0.77},"avg":4.05},"security":{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},"compliance":{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}},"drift":{"regression":-0.03,"semantic":-0.05,"security":0,"compliance":0},"promptVersions":{"versions":[{"date":"2026-06-02T08:10:00Z","scores":{"GD-001":4.2,"GD-002":4,"GD-003":4.3,"GD-004":3.8},"avg":4.08,"promptHash":"a1b2c3d4e5f6"},{"date":"2026-06-04T08:07:00Z","scores":{"GD-001":4.1,"GD-002":3.8,"GD-003":4.4,"GD-004":3.9},"avg":4.05,"promptHash":"7f8e9d0c1b2a"}],"comparison":{"promptHashA":"a1b2c3d4e5f6","promptHashB":"7f8e9d0c1b2a","avgA":4.08,"avgB":4.05,"cases":[{"id":"GD-001","before":4.2,"after":4.1,"delta":-0.1},{"id":"GD-002","before":4,"after":3.8,"delta":-0.2},{"id":"GD-003","before":4.3,"after":4.4,"delta":0.1},{"id":"GD-004","before":3.8,"after":3.9,"delta":0.1}]}}}};
+const ALL_AGENT_DATA = {"default":{"data":{"regression":[{"date":"2026-05-19T08:12:00Z","scores":{"GD-001":3.8,"GD-002":3.6,"GD-003":4.1,"GD-004":3.5},"avg":3.75},{"date":"2026-05-26T08:15:00Z","scores":{"GD-001":4,"GD-002":3.9,"GD-003":4.2,"GD-004":3.7},"avg":3.95},{"date":"2026-06-02T08:10:00Z","scores":{"GD-001":4.2,"GD-002":4,"GD-003":4.3,"GD-004":3.8},"avg":4.08},{"date":"2026-06-04T08:07:00Z","scores":{"GD-001":4.1,"GD-002":3.8,"GD-003":4.4,"GD-004":3.9},"avg":4.05},{"date":"2026-08-10T07:45:31.800Z","scores":{},"metrics":{},"avg":null,"promptHash":"75357d685f23"},{"date":"2026-08-10T07:55:10.535Z","scores":{},"metrics":{},"avg":null,"promptHash":"75357d685f23"},{"date":"2026-08-10T08:35:33.550Z","scores":{},"metrics":{},"avg":null,"promptHash":"75357d685f23"},{"date":"2026-08-10T08:37:08.396Z","scores":{},"metrics":{},"avg":null,"promptHash":"75357d685f23"}],"semantic":[{"date":"2026-05-19T08:12:00Z","scores":{"jaccard":0.41,"rouge":0.53,"completeness":0.72},"avg":3.8},{"date":"2026-05-26T08:15:00Z","scores":{"jaccard":0.44,"rouge":0.57,"completeness":0.75},"avg":4},{"date":"2026-06-02T08:10:00Z","scores":{"jaccard":0.46,"rouge":0.59,"completeness":0.78},"avg":4.1},{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.45,"rouge":0.58,"completeness":0.77},"avg":4.05}],"security":[{"date":"2026-05-19T08:12:00Z","scores":{"blocked":6,"total":7,"rate":0.857},"avg":4.3},{"date":"2026-05-26T08:15:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},{"date":"2026-06-02T08:10:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5}],"compliance":[{"date":"2026-05-19T08:12:00Z","scores":{"greeting":1,"off-topic":0},"avg":3.5},{"date":"2026-05-26T08:15:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-02T08:10:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}]},"suiteStatus":{"Compliance":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"},"Structure (Zod)":{"status":"pass","passed":3,"total":3,"date":"2026-06-04T08:07:00Z"},"Quality Metrics":{"status":"warn","passed":4,"total":5,"date":"2026-06-04T08:07:00Z"},"Regression":{"status":"pass","passed":4,"total":4,"date":"2026-06-04T08:07:00Z"},"Security":{"status":"pass","passed":7,"total":7,"date":"2026-06-04T08:07:00Z"},"Universal (brevity)":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"}},"latest":{"regression":{"date":"2026-08-10T08:37:08.396Z","scores":{},"metrics":{},"avg":null,"promptHash":"75357d685f23"},"semantic":{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.45,"rouge":0.58,"completeness":0.77},"avg":4.05},"security":{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},"compliance":{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}},"drift":{"regression":0,"semantic":-0.05,"security":0,"compliance":0},"promptVersions":{"versions":[{"date":"2026-08-10T08:37:08.396Z","scores":{},"metrics":{},"avg":null,"promptHash":"75357d685f23"}],"comparison":null}},"insurance-agent":{"data":{"regression":[{"date":"2026-05-19T08:12:00Z","scores":{"INS-001":3.5,"INS-002":3.4,"INS-003":3.8},"avg":3.57,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-05-26T08:15:00Z","scores":{"INS-001":3.7,"INS-002":3.6,"INS-003":4},"avg":3.77,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-06-02T08:10:00Z","scores":{"INS-001":3.9,"INS-002":3.7,"INS-003":4.1},"avg":3.9,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-06-04T08:07:00Z","scores":{"INS-001":4,"INS-002":3.8,"INS-003":4.2},"avg":4,"promptHash":"9d0c1b2a7f8e"}],"semantic":[{"date":"2026-05-19T08:12:00Z","scores":{"jaccard":0.38,"rouge":0.49,"completeness":0.68},"avg":3.6},{"date":"2026-05-26T08:15:00Z","scores":{"jaccard":0.4,"rouge":0.52,"completeness":0.71},"avg":3.75},{"date":"2026-06-02T08:10:00Z","scores":{"jaccard":0.43,"rouge":0.55,"completeness":0.74},"avg":3.9},{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.44,"rouge":0.56,"completeness":0.75},"avg":3.95}],"security":[{"date":"2026-05-19T08:12:00Z","scores":{"blocked":5,"total":7,"rate":0.71},"avg":3.6},{"date":"2026-05-26T08:15:00Z","scores":{"blocked":6,"total":7,"rate":0.857},"avg":4.3},{"date":"2026-06-02T08:10:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5}],"compliance":[{"date":"2026-05-19T08:12:00Z","scores":{"greeting":1,"off-topic":0},"avg":3.5},{"date":"2026-05-26T08:15:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-02T08:10:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}]},"suiteStatus":{"Compliance":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"},"Structure (Zod)":{"status":"warn","passed":2,"total":3,"date":"2026-06-04T08:07:00Z"},"Quality Metrics":{"status":"pass","passed":5,"total":5,"date":"2026-06-04T08:07:00Z"},"Regression":{"status":"pass","passed":3,"total":3,"date":"2026-06-04T08:07:00Z"},"Security":{"status":"pass","passed":7,"total":7,"date":"2026-06-04T08:07:00Z"},"Universal (brevity)":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"}},"latest":{"regression":{"date":"2026-06-04T08:07:00Z","scores":{"INS-001":4,"INS-002":3.8,"INS-003":4.2},"avg":4,"promptHash":"9d0c1b2a7f8e"},"semantic":{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.44,"rouge":0.56,"completeness":0.75},"avg":3.95},"security":{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},"compliance":{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}},"drift":{"regression":0.1,"semantic":0.05,"security":0,"compliance":0},"promptVersions":{"versions":[{"date":"2026-06-02T08:10:00Z","scores":{"INS-001":3.9,"INS-002":3.7,"INS-003":4.1},"avg":3.9,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-06-04T08:07:00Z","scores":{"INS-001":4,"INS-002":3.8,"INS-003":4.2},"avg":4,"promptHash":"9d0c1b2a7f8e"}],"comparison":{"promptHashA":"c3d4e5f6a1b2","promptHashB":"9d0c1b2a7f8e","avgA":3.9,"avgB":4,"cases":[{"id":"INS-001","before":3.9,"after":4,"delta":0.1},{"id":"INS-002","before":3.7,"after":3.8,"delta":0.1},{"id":"INS-003","before":4.1,"after":4.2,"delta":0.1}]}}},"loan-agent":{"data":{"regression":[{"date":"2026-05-19T08:12:00Z","scores":{"GD-001":3.8,"GD-002":3.6,"GD-003":4.1,"GD-004":3.5},"avg":3.75,"promptHash":"a1b2c3d4e5f6"},{"date":"2026-05-26T08:15:00Z","scores":{"GD-001":4,"GD-002":3.9,"GD-003":4.2,"GD-004":3.7},"avg":3.95,"promptHash":"a1b2c3d4e5f6"},{"date":"2026-06-02T08:10:00Z","scores":{"GD-001":4.2,"GD-002":4,"GD-003":4.3,"GD-004":3.8},"avg":4.08,"promptHash":"a1b2c3d4e5f6"},{"date":"2026-06-04T08:07:00Z","scores":{"GD-001":4.1,"GD-002":3.8,"GD-003":4.4,"GD-004":3.9},"avg":4.05,"promptHash":"7f8e9d0c1b2a"}],"semantic":[{"date":"2026-05-19T08:12:00Z","scores":{"jaccard":0.41,"rouge":0.53,"completeness":0.72},"avg":3.8},{"date":"2026-05-26T08:15:00Z","scores":{"jaccard":0.44,"rouge":0.57,"completeness":0.75},"avg":4},{"date":"2026-06-02T08:10:00Z","scores":{"jaccard":0.46,"rouge":0.59,"completeness":0.78},"avg":4.1},{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.45,"rouge":0.58,"completeness":0.77},"avg":4.05}],"security":[{"date":"2026-05-19T08:12:00Z","scores":{"blocked":6,"total":7,"rate":0.857},"avg":4.3},{"date":"2026-05-26T08:15:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},{"date":"2026-06-02T08:10:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5}],"compliance":[{"date":"2026-05-19T08:12:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-05-26T08:15:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-02T08:10:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5},{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}]},"suiteStatus":{"Compliance":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"},"Structure (Zod)":{"status":"pass","passed":3,"total":3,"date":"2026-06-04T08:07:00Z"},"Quality Metrics":{"status":"warn","passed":4,"total":5,"date":"2026-06-04T08:07:00Z"},"Regression":{"status":"pass","passed":4,"total":4,"date":"2026-06-04T08:07:00Z"},"Security":{"status":"pass","passed":7,"total":7,"date":"2026-06-04T08:07:00Z"},"Universal (brevity)":{"status":"pass","passed":2,"total":2,"date":"2026-06-04T08:07:00Z"}},"latest":{"regression":{"date":"2026-06-04T08:07:00Z","scores":{"GD-001":4.1,"GD-002":3.8,"GD-003":4.4,"GD-004":3.9},"avg":4.05,"promptHash":"7f8e9d0c1b2a"},"semantic":{"date":"2026-06-04T08:07:00Z","scores":{"jaccard":0.45,"rouge":0.58,"completeness":0.77},"avg":4.05},"security":{"date":"2026-06-04T08:07:00Z","scores":{"blocked":7,"total":7,"rate":1},"avg":5},"compliance":{"date":"2026-06-04T08:07:00Z","scores":{"greeting":1,"off-topic":1},"avg":4.5}},"drift":{"regression":-0.03,"semantic":-0.05,"security":0,"compliance":0},"promptVersions":{"versions":[{"date":"2026-06-02T08:10:00Z","scores":{"GD-001":4.2,"GD-002":4,"GD-003":4.3,"GD-004":3.8},"avg":4.08,"promptHash":"a1b2c3d4e5f6"},{"date":"2026-06-04T08:07:00Z","scores":{"GD-001":4.1,"GD-002":3.8,"GD-003":4.4,"GD-004":3.9},"avg":4.05,"promptHash":"7f8e9d0c1b2a"}],"comparison":{"promptHashA":"a1b2c3d4e5f6","promptHashB":"7f8e9d0c1b2a","avgA":4.08,"avgB":4.05,"cases":[{"id":"GD-001","before":4.2,"after":4.1,"delta":-0.1},{"id":"GD-002","before":4,"after":3.8,"delta":-0.2},{"id":"GD-003","before":4.3,"after":4.4,"delta":0.1},{"id":"GD-004","before":3.8,"after":3.9,"delta":0.1}]}}}};
 
 function switchAgent(agentId, btn) {
   document.querySelectorAll('.agent-pill').forEach(p => {
@@ -373,8 +346,8 @@ function show(id, btn) {
   btn.classList.add('active');
 }
 
-const labels = ["May 19","May 26","Jun 2","Jun 4"];
-const datasets = [{"label":"Regression","data":["3.57","3.77","3.90","4.00"],"borderColor":"#016CE2","backgroundColor":"#016CE220","tension":0.4,"fill":false,"pointRadius":4},{"label":"Semantic","data":["3.60","3.75","3.90","3.95"],"borderColor":"#22c55e","backgroundColor":"#22c55e20","tension":0.4,"fill":false,"pointRadius":4},{"label":"Security","data":["3.60","4.30","5.00","5.00"],"borderColor":"#f59e0b","backgroundColor":"#f59e0b20","tension":0.4,"fill":false,"pointRadius":4},{"label":"Compliance","data":["3.50","4.50","4.50","4.50"],"borderColor":"#8b5cf6","backgroundColor":"#8b5cf620","tension":0.4,"fill":false,"pointRadius":4}];
+const labels = ["May 19","May 26","Jun 2","Jun 4","Aug 10","Aug 10","Aug 10","Aug 10"];
+const datasets = [{"label":"Regression","data":["3.75","3.95","4.08","4.05",null,null,null,null],"borderColor":"#016CE2","backgroundColor":"#016CE220","tension":0.4,"fill":false,"pointRadius":4},{"label":"Semantic","data":["3.80","4.00","4.10","4.05"],"borderColor":"#22c55e","backgroundColor":"#22c55e20","tension":0.4,"fill":false,"pointRadius":4},{"label":"Security","data":["4.30","5.00","5.00","5.00"],"borderColor":"#f59e0b","backgroundColor":"#f59e0b20","tension":0.4,"fill":false,"pointRadius":4},{"label":"Compliance","data":["3.50","4.50","4.50","4.50"],"borderColor":"#8b5cf6","backgroundColor":"#8b5cf620","tension":0.4,"fill":false,"pointRadius":4}];
 
 new Chart(document.getElementById('trendChart'), {
   type: 'line',
@@ -390,8 +363,8 @@ new Chart(document.getElementById('trendChart'), {
   }
 });
 
-const regLabels = ["May 19","May 26","Jun 2","Jun 4"];
-const regData = ["3.57","3.77","3.90","4.00"];
+const regLabels = ["May 19","May 26","Jun 2","Jun 4","Aug 10","Aug 10","Aug 10","Aug 10"];
+const regData = ["3.75","3.95","4.08","4.05",null,null,null,null];
 new Chart(document.getElementById('regChart'), {
   type: 'bar',
   data: {
@@ -412,7 +385,7 @@ new Chart(document.getElementById('regChart'), {
   }
 });
 
-renderPromptVersions({"versions":[{"date":"2026-06-02T08:10:00Z","scores":{"INS-001":3.9,"INS-002":3.7,"INS-003":4.1},"avg":3.9,"promptHash":"c3d4e5f6a1b2"},{"date":"2026-06-04T08:07:00Z","scores":{"INS-001":4,"INS-002":3.8,"INS-003":4.2},"avg":4,"promptHash":"9d0c1b2a7f8e"}],"comparison":{"promptHashA":"c3d4e5f6a1b2","promptHashB":"9d0c1b2a7f8e","avgA":3.9,"avgB":4,"cases":[{"id":"INS-001","before":3.9,"after":4,"delta":0.1},{"id":"INS-002","before":3.7,"after":3.8,"delta":0.1},{"id":"INS-003","before":4.1,"after":4.2,"delta":0.1}]}});
+renderPromptVersions({"versions":[{"date":"2026-08-10T08:37:08.396Z","scores":{},"metrics":{},"avg":null,"promptHash":"75357d685f23"}],"comparison":null});
 
 new Chart(document.getElementById('ringChart'), {
   type: 'doughnut',
