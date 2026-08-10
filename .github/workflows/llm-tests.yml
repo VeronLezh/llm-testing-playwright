@@ -26,7 +26,7 @@ jobs:
           npx playwright test \
             tests/llm/suites/Structure.spec.js \
             tests/llm/suites/Compliance.spec.js \
-            tests/llm/suites/Negative.spec.js -x
+            tests/llm/suites/Negative.spec.js
         env:
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
