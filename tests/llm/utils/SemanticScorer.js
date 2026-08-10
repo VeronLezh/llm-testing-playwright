@@ -16,10 +16,18 @@ export class SemanticScorer {
   }
 
   rougeScore(reference, generated) {
+    let rougeLScore;
+    try {
+      // js-rouge's sentence segmenter is English-tuned and can throw on
+      // markdown/non-English text (e.g. a lone "**" left after trimming).
+      rougeLScore = rougeL(generated, reference);
+    } catch {
+      rougeLScore = 0;
+    }
     return {
-      rouge1: rougeN(reference, generated, 1),
-      rouge2: rougeN(reference, generated, 2),
-      rougeL: rougeL(reference, generated),
+      rouge1: rougeN(generated, reference, { n: 1 }),
+      rouge2: rougeN(generated, reference, { n: 2 }),
+      rougeL: rougeLScore,
     };
   }
 
