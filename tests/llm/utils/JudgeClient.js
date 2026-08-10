@@ -1,6 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 
+// Groq is OpenAI-SDK-compatible — same client, different base URL, key, and model.
+const GROQ = { baseURL: 'https://api.groq.com/openai/v1', model: process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile' };
+
 const JUDGE_PROMPT = `
 You are a strict QA reviewer. Score the AI assistant's response.
 
@@ -18,7 +21,10 @@ export class JudgeClient {
     this.provider = provider;
     this.client = provider === 'anthropic'
       ? new Anthropic()
-      : new OpenAI();
+      : new OpenAI({
+          apiKey: provider === 'groq' ? process.env.GROQ_API_KEY : undefined,
+          baseURL: provider === 'groq' ? GROQ.baseURL : undefined,
+        });
   }
 
   async evaluate(userPrompt, response, criteria = {
@@ -59,7 +65,7 @@ export class JudgeClient {
       return block.text;
     }
     const msg = await this.client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: this.provider === 'groq' ? GROQ.model : 'gpt-4o-mini',
       temperature: 0,
       messages: [{ role: 'user', content: prompt }],
     });

@@ -31,6 +31,7 @@ jobs:
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
       - name: Run regression + quality metrics
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
@@ -39,6 +40,7 @@ jobs:
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
       - uses: actions/upload-artifact@v5
         if: always()

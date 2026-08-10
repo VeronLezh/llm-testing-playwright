@@ -87,9 +87,11 @@ scripts/
 
 ```bash
 # .env
-LLM_PROVIDER=anthropic          # anthropic | openai
+LLM_PROVIDER=anthropic          # anthropic | openai | groq
 ANTHROPIC_API_KEY=sk-ant-...
 OPENAI_API_KEY=sk-...
+GROQ_API_KEY=gsk_...
+# GROQ_MODEL=llama-3.3-70b-versatile   # optional override
 
 # Multi-agent (optional)
 # LOAN_AGENT_API_KEY=sk-ant-...
@@ -421,7 +423,7 @@ on:
 
 Fast checks (structure + security) run on every push. Regression + metrics run on schedule or manual trigger.
 
-Add secrets to your GitHub repo: `ANTHROPIC_API_KEY` and/or `OPENAI_API_KEY`.
+Add secrets to your GitHub repo: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, and/or `GROQ_API_KEY` — whichever matches the `LLM_PROVIDER` repo variable (defaults to `anthropic`).
 
 ---
 
@@ -513,6 +515,7 @@ All tests use `LLMClient`, so provider replacement happens in one place:
 
 ```bash
 LLM_PROVIDER=openai npx playwright test tests/llm/
+LLM_PROVIDER=groq npx playwright test tests/llm/
 ```
 
 ```javascript
@@ -520,7 +523,10 @@ LLM_PROVIDER=openai npx playwright test tests/llm/
 
 export class LLMClient {
   constructor({ provider = process.env.LLM_PROVIDER ?? 'anthropic', systemPrompt, apiKey } = {}) {
-    this.client = provider === 'anthropic' ? new Anthropic({ apiKey }) : new OpenAI({ apiKey });
+    // groq is OpenAI-SDK-compatible: same client, different baseURL/key/model
+    this.client = provider === 'anthropic'
+      ? new Anthropic({ apiKey })
+      : new OpenAI({ apiKey, baseURL: provider === 'groq' ? 'https://api.groq.com/openai/v1' : undefined });
     this.provider = provider;
   }
 }
