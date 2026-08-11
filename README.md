@@ -63,7 +63,8 @@ tests/llm/
 │   ├── Structure.spec.js     # Zod schema validation
 │   ├── QualityMetrics.spec.js # judge + semantic metrics
 │   ├── Regression.spec.js    # golden dataset
-│   ├── Negative.spec.js      # security & boundary attacks
+│   ├── Negative.spec.js      # security & boundary attacks (incl. persona/identity override)
+│   ├── ToolPoisoning.spec.js # tool-description prompt injection (MCP-style supply-chain risk)
 │   └── universal/
 │       └── brevity.spec.js   # multi-agent universal test
 ├── fixtures/
