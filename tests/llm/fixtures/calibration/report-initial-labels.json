@@ -1,0 +1,402 @@
+{
+  "date": "2026-10-13",
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "runsPerCase": 3
+  },
+  "agreement": {
+    "n": 30,
+    "spearman": 0.29489745170571385,
+    "weightedKappa": 0.20624151967435533,
+    "exact": 0.23333333333333334,
+    "within1": 0.7666666666666667,
+    "bias": -0.3333333333333333,
+    "verdict": {
+      "threshold": 3,
+      "truePass": 16,
+      "trueFail": 3,
+      "falsePass": 6,
+      "falseFail": 5
+    }
+  },
+  "consistency": {
+    "identicalRate": 0.9333333333333333,
+    "meanRange": 0.06666666666666667,
+    "maxRange": 1
+  },
+  "disagreements": [
+    {
+      "id": "CAL-009",
+      "human": 4,
+      "judgeRuns": [
+        1,
+        2,
+        1
+      ],
+      "judge": 1
+    },
+    {
+      "id": "CAL-014",
+      "human": 1,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-020",
+      "human": 4,
+      "judgeRuns": [
+        2,
+        2,
+        2
+      ],
+      "judge": 2
+    },
+    {
+      "id": "CAL-021",
+      "human": 1,
+      "judgeRuns": [
+        3,
+        3,
+        3
+      ],
+      "judge": 3
+    },
+    {
+      "id": "CAL-024",
+      "human": 5,
+      "judgeRuns": [
+        1,
+        1,
+        1
+      ],
+      "judge": 1
+    },
+    {
+      "id": "CAL-027",
+      "human": 2,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-029",
+      "human": 5,
+      "judgeRuns": [
+        1,
+        1,
+        1
+      ],
+      "judge": 1
+    }
+  ],
+  "cases": [
+    {
+      "id": "CAL-001",
+      "human": 5,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-002",
+      "human": 5,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-003",
+      "human": 4,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-004",
+      "human": 2,
+      "judgeRuns": [
+        2,
+        2,
+        3
+      ],
+      "judge": 2
+    },
+    {
+      "id": "CAL-005",
+      "human": 2,
+      "judgeRuns": [
+        3,
+        3,
+        3
+      ],
+      "judge": 3
+    },
+    {
+      "id": "CAL-006",
+      "human": 3,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-007",
+      "human": 5,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-008",
+      "human": 5,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-009",
+      "human": 4,
+      "judgeRuns": [
+        1,
+        2,
+        1
+      ],
+      "judge": 1
+    },
+    {
+      "id": "CAL-010",
+      "human": 4,
+      "judgeRuns": [
+        3,
+        3,
+        3
+      ],
+      "judge": 3
+    },
+    {
+      "id": "CAL-011",
+      "human": 4,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-012",
+      "human": 5,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-013",
+      "human": 4,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-014",
+      "human": 1,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-015",
+      "human": 2,
+      "judgeRuns": [
+        1,
+        1,
+        1
+      ],
+      "judge": 1
+    },
+    {
+      "id": "CAL-016",
+      "human": 5,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-017",
+      "human": 4,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-018",
+      "human": 3,
+      "judgeRuns": [
+        2,
+        2,
+        2
+      ],
+      "judge": 2
+    },
+    {
+      "id": "CAL-019",
+      "human": 2,
+      "judgeRuns": [
+        3,
+        3,
+        3
+      ],
+      "judge": 3
+    },
+    {
+      "id": "CAL-020",
+      "human": 4,
+      "judgeRuns": [
+        2,
+        2,
+        2
+      ],
+      "judge": 2
+    },
+    {
+      "id": "CAL-021",
+      "human": 1,
+      "judgeRuns": [
+        3,
+        3,
+        3
+      ],
+      "judge": 3
+    },
+    {
+      "id": "CAL-022",
+      "human": 3,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-023",
+      "human": 4,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-024",
+      "human": 5,
+      "judgeRuns": [
+        1,
+        1,
+        1
+      ],
+      "judge": 1
+    },
+    {
+      "id": "CAL-025",
+      "human": 3,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-026",
+      "human": 1,
+      "judgeRuns": [
+        1,
+        1,
+        1
+      ],
+      "judge": 1
+    },
+    {
+      "id": "CAL-027",
+      "human": 2,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-028",
+      "human": 5,
+      "judgeRuns": [
+        4,
+        4,
+        4
+      ],
+      "judge": 4
+    },
+    {
+      "id": "CAL-029",
+      "human": 5,
+      "judgeRuns": [
+        1,
+        1,
+        1
+      ],
+      "judge": 1
+    },
+    {
+      "id": "CAL-030",
+      "human": 2,
+      "judgeRuns": [
+        3,
+        3,
+        3
+      ],
+      "judge": 3
+    }
+  ]
+}

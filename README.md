@@ -239,6 +239,34 @@ test('IMP-002 - tone and brevity', async () => {
 });
 ```
 
+### Judge calibration
+
+A judge is only useful if it agrees with a human. `npm run calibrate` compares it against 30 hand-labelled
+responses (`tests/llm/fixtures/calibration/`; labelling rules in [docs/judge-calibration.md](docs/judge-calibration.md)).
+Judge: `gpt-4o-mini`.
+
+| | baseline judge | strict judge |
+|---|---|---|
+| Spearman ρ | 0.60 | 0.86 |
+| Weighted kappa | 0.56 | 0.84 |
+| Within ±1 point | 87% | 97% |
+| False passes (human < 3, judge ≥ 3) | 6 of 12 | 2 of 12 |
+
+- **Stable but lenient.** The baseline judge repeats itself (93% identical across 3 runs) but passed half of the
+  answers a human would reject: evasive replies, confident wrong facts, an out-of-scope topic. It also never gave a 5,
+  and it can't see the assistant's rules, so a reply that breaks them can still score well.
+- **Strict mode** (`evaluate(..., { strict: true, context })`) adds scale anchors, penalties for evasive or
+  absolute-but-false answers, and the agent's own rules. It is opt-in so existing thresholds keep their meaning.
+  Compare with `npm run calibrate:strict`.
+
+Caveats, read before trusting the numbers:
+- Only 30 cases, one labeller, one judge model.
+- Three labels were corrected after the first run (CAL-009/020/029: absurd answers I had rated 4–5). The original
+  run is kept in `report-initial-labels.json`; on the original labels the baseline kappa was 0.21.
+- The strict rubric was written after seeing where the baseline failed on **these same 30 cases**, so its numbers are
+  optimistic. A fresh held-out set has not been run.
+- The strict run is a single pass per case, so its run-to-run consistency was not measured.
+
 ---
 
 ## Golden Dataset Regression

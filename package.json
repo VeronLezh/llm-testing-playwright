@@ -9,7 +9,9 @@
     "test:regression": "npx playwright test tests/llm/suites/Regression.spec.js",
     "test:structure": "npx playwright test tests/llm/suites/Structure.spec.js",
     "test:ui": "npx playwright test --ui tests/llm/",
-    "dashboard": "node scripts/generate-dashboard.js"
+    "dashboard": "node scripts/generate-dashboard.js",
+    "calibrate": "node scripts/calibrate-judge.js",
+    "calibrate:strict": "CALIBRATION_MODE=strict node scripts/calibrate-judge.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.100.1",
